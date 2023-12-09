@@ -1,4 +1,4 @@
-package org.example.hibernate;
+package org.example.migration;
 
 import org.example.props.PropertyReader;
 import org.flywaydb.core.Flyway;

@@ -1,35 +1,34 @@
 package org.example.service;
 
-import org.example.dao.client.ClientDao;
-import org.example.dao.client.ClientDaoImpl;
+import org.example.crudServices.client.ClientDaoImpl;
 import org.example.entity.Client;
 
 import java.util.List;
 
 public class ClientService {
-    private final ClientDao clientDao = new ClientDaoImpl();
+    private final ClientDaoImpl clientDao = new ClientDaoImpl();
 
     public void saveClient(Client client){
-        clientDao.saveClient(client);
+        clientDao.save(client);
     }
 
     public Client findClientById(Long id){
-        return clientDao.findClientById(id);
+        return clientDao.findById(id);
     }
 
     public void updateClient(Client client){
-        clientDao.updateClient(client);
+        clientDao.update(client);
     }
 
     public void deleteClient(Client client){
-        clientDao.deleteClient(client);
+        clientDao.delete(client);
     }
 
     public void deleteClientById(Long id){
-        clientDao.deleteClientById(id);
+        clientDao.deleteById(id);
     }
 
     public List<Client> getAllClients(){
-        return clientDao.getAllClients();
+        return clientDao.getAll();
     }
 }

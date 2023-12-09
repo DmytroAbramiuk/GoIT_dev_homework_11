@@ -1,5 +1,6 @@
-package org.example.planet;
+package org.example.crudServices.planet;
 
+import org.example.crudServices.Dao;
 import org.example.entity.Planet;
 import org.example.hibernate.HibernateUtils;
 import org.hibernate.Session;
@@ -9,12 +10,12 @@ import org.hibernate.Transaction;
 import java.util.List;
 import java.util.Objects;
 
-public class PlanetDaoImpl implements PlanetDao{
+public class PlanetDaoImpl implements Dao<Planet, String> {
 
-    private SessionFactory sessionFactory = HibernateUtils.getInstance().getSessionFactory();
+    private final SessionFactory sessionFactory = HibernateUtils.getInstance().getSessionFactory();
 
     @Override
-    public void savePlanet(Planet planet) {
+    public void save(Planet planet) {
         try(Session session = sessionFactory.openSession()){
             Transaction transaction = session.beginTransaction();
             session.persist(planet);
@@ -23,14 +24,14 @@ public class PlanetDaoImpl implements PlanetDao{
     }
 
     @Override
-    public Planet findPlanetById(String id) {
+    public Planet findById(String id) {
         try(Session session = sessionFactory.openSession()){
             return session.get(Planet.class, id);
         }
     }
 
     @Override
-    public void updatePlanet(Planet planet) {
+    public void update(Planet planet) {
         if(Objects.isNull(planet.getId())){
             return;
         }
@@ -47,7 +48,7 @@ public class PlanetDaoImpl implements PlanetDao{
     }
 
     @Override
-    public void deletePlanet(Planet planet) {
+    public void delete(Planet planet) {
         try(Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             session.remove(planet);
@@ -56,7 +57,7 @@ public class PlanetDaoImpl implements PlanetDao{
     }
 
     @Override
-    public void deletePlanetById(String id) {
+    public void deleteById(String id) {
         try(Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             Planet forDelete = session.get(Planet.class, id);
@@ -66,7 +67,7 @@ public class PlanetDaoImpl implements PlanetDao{
     }
 
     @Override
-    public List<Planet> getAllPlanets() {
+    public List<Planet> getAll() {
         try(Session session = sessionFactory.openSession()) {
             return session.createQuery("from Planet", Planet.class).list();
         }
