@@ -1,0 +1,17 @@
+CREATE TABLE Client (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR(200) CHECK (LENGTH(name) >= 3 AND LENGTH(name) <= 200)
+);
+
+CREATE TABLE Planet (
+    id VARCHAR(10) PRIMARY KEY CHECK (id ~ '^[A-Z0-9]+$'),
+    name VARCHAR(500) CHECK (LENGTH(name) >= 1 AND LENGTH(name) <= 500)
+);
+
+CREATE TABLE Ticket (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    client_id BIGINT,
+    from_planet_id VARCHAR(10),
+    to_planet_id VARCHAR(10)
+);
